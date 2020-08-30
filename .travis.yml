@@ -5,3 +5,14 @@ before_install:
   - docker build -f Dockerfile.dev -t travis .
 script:
   - docker run -e CI=true travis npm run test
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: '$ACCESS_ID'
+  secret_access_key: '$ACCESS_SECRET'
+  region: 'eu-central-1'
+  app: 'Travis'
+  env: 'Travis-env'
+  bucket_name: elasticbeanstalk-eu-central-1-251245837115
+  bucker_path: Travis
+  on:
+    branch: master
